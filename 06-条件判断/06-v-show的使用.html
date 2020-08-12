@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+
+		
+		<div id="app">
+			<!-- 通过app.isShow修改值，进行测试 -->
+			<!-- 当条件为false时，不会存在于 DOM 中  -->
+			<h2 v-if="isShow" id="aaa">{{message}}</h2>
+			<!-- 当条件为false时，增加样式：display:none  -->
+			<h2 v-show="isShow" id="bbb">{{message}}</h2>
+		</div>
+		
+		<script src="../js/vue.js"></script>
+		<script>
+			const app = new Vue({
+				el: '#app',
+				data: {
+					isShow: true
+				}
+			})
+		</script>
+		
+	</body>
+</html>

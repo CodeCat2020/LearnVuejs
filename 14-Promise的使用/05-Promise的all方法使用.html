@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script>
+			
+			// 如果一个需求需要多个网络请求，如何解决？
+			
+			// Promise.all()的参数是一个可迭代对象
+			Promise.all([
+				// new Promise((resolve,reject)=>{
+				// 	$ajax({
+				// 		url: 'url1',
+				// 		success: function(data){
+				// 			resolve(data)
+				// 		}
+				// 	})
+				// }),
+				// new Promise((resolve,reject)=>{
+				// 	$ajax({
+				// 		url: 'url2',
+				// 		success: function(data){
+				// 			resolve(data)
+				// 		}
+				// 	})
+				// })
+				
+				new Promise((resolve,reject)=>{
+					setTimeout(()=>{
+						resolve({name:'why', age: 19})
+					},2000)
+				}),
+				new Promise((resolve,reject)=>{
+					setTimeout(()=>{
+						resolve({name:'kobe', age: 18})
+					},1000)
+				})
+				
+			]).then(results => {
+				console.log(results)
+				// results[0] 存放第一个请求的结果
+				// results[1] 存放第二个请求的结果
+			})
+			
+			
+		</script>
+	</body>
+</html>

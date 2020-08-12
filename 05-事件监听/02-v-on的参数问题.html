@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<!-- 1. 事件调用的方法没有参数 -->
+			<button @click="btn1Click">按钮1</button>
+			<button @click="btn1Click()">按钮1</button>
+			<button @click="btn1Click(123)">按钮1</button>
+			
+			<!-- 2. 在事件定义时，写方法时省略了小括号，但方法本身是需要一个参数的 -->
+			<!-- <button @click="btn2Click(123)">按钮3</button> -->
+			<!-- vue会默认将浏览器生成的event事件对象传入到方法 -->
+			<button @click="btn2Click">按钮2-1</button>
+			<!-- 打印undefined -->
+			<button @click="btn2Click()">按钮2-2</button>
+			<button @click="btn2Click(123)">按钮2-3</button>
+			
+			<!-- 3. 方法定义时，我们需要event对象，同时又需要其它参数 -->
+			<!-- event对象传给了abc -->
+			<button @click="btn3Click">按钮3-btn3Click</button>
+			<!-- 都是undefined -->
+			<button @click="btn3Click()">按钮3-btn3Click()</button>
+			<!-- 打印*** 123 undefined -->
+			<button @click="btn3Click(123)">按钮3-btn3Click(123)</button>
+			<!-- 打印*** 123 undefined，同时报错 -->
+			<button @click="btn3Click(123,event)">按钮3-btn3Click(123,event)</button>
+			<!-- 在调用方法，如果手动的获取到浏览器参数的event对象？$event -->
+			<button @click="btn3Click(123,$event)">按钮3</button>
+			<!-- 把abc当做变量，在data里面找 -->
+			<button @click="btn3Click(abc,$event)">按钮3-btn3Click(abc,$event)</button>
+		
+		</div>
+		
+		
+		<script src="../js/vue.js"></script>
+		<script>
+			const app = new Vue({
+				el:'#app',
+				data: {
+					message: '你好！',
+					abc: 1234
+				},
+				methods:{	
+					btn1Click(){
+						console.log("btnClick",event);
+					},
+					btn2Click(abc){
+						console.log("---",abc);
+					},
+					btn3Click(abc,event){
+						console.log('***',abc,event);
+					}
+				}
+			})
+			
+			// 如果函数需要参数，但是没有传入，那么函数的形参是undefined
+			// function fun(name){
+			// 	console.log(name);
+			// }
+			
+			
+		</script>
+	</body>
+</html>

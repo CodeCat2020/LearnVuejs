@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+
+		
+		<div id="app">
+			<ul>
+				<!-- 在数组中间插入元素，原来的index会变化 -->
+				<!-- 绑定item可以提高性能 -->
+				<li v-for="item in letters" :key="item">{{item}}</li>
+			</ul>
+		</div>
+		
+		<script src="../js/vue.js"></script>
+		<script>
+			const app = new Vue({
+				el: '#app',
+				data: {
+					letters: ['A','B','C','D','E']
+				}
+			})
+		</script>
+		
+	</body>
+</html>

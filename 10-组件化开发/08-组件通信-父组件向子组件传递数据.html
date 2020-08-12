@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+
+		<!-- 父组件模板 -->
+		<div id="app">
+			<!-- 一定要用v-bind -->
+			<!-- 如果没有v-bind，不会把movies等作为变量去寻找，而是作为字符串展示  -->
+			<!-- <cpn cmovies="movies" cmessage="message"></cpn> -->
+			
+			<!-- 在props是对象时，省略 :cmessage="message 则使用子组件的props中的默认值，而且会报错 -->
+			<cpn v-bind:cmovies="movies" cmessage="message"></cpn>
+			<cpn :cmessage="message"></cpn>
+			<cpn v-bind:cmovies="movies"></cpn>
+
+		</div>
+		
+		
+		<!-- 子组件模板 -->
+		<template id="cpn">
+			<div>
+				<ul>
+					<li v-for="item in cmovies">{{item}}</li>
+				</ul>
+				<p>{{cmessage}}</p>
+			</div>
+		</template>
+		
+		<script src="../js/vue.js"></script>
+		<script>
+
+			
+			// 子组件
+			const cpn = Vue.extend({
+				template: '#cpn',
+				// 父传子：props
+				// 方式一：字符串数组
+				// 使用 cMovies 等驼峰标识会存在一些问题
+				// props: ['cmovies','cmessage'],
+				// 对象写法，一般都是用这种写法
+				props: {
+					// 1.类型限制
+					// cmovies: Array,
+					// cmessage: String,
+					
+					// 2.提供一些默认值，以及必传值
+					cmovies: {
+						type: Array,
+						// Vue 2.5.17 后，default: [] 会报错
+						// 类型是对象或者数组时，默认值必须是一个函数
+						default() {
+							return []
+						},
+						
+					},
+					cmessage: {
+						type: String,
+						default: 'aaaa',
+						required: true
+					}
+				},
+				data(){
+					return {
+						
+					}
+				},
+				
+			})
+			
+			// 父组件
+			const app = new Vue({
+				el: '#app',
+				data: {
+					message: '你好！',
+					movies: ['海贼王','好想告诉你','龙猫']
+				},
+				components: {
+					// cpn: cpn
+					cpn					// 对象的增强写法
+				}
+			})
+		</script>
+		
+	</body>
+</html>

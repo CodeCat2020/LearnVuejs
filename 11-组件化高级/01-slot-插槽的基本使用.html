@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+
+		
+		<div id="app">
+			<!-- <cpn>元素的内容将加载到slot -->
+			<!-- <cpn></cpn>
+			<cpn><button>案例</button></cpn>
+			<cpn><span>段落</span></cpn>
+			<cpn><i>哈哈</i></cpn> -->
+			
+			<!-- 插槽有默认值时 -->
+			<cpn></cpn>
+			<cpn><span>段落</span></cpn>
+			<cpn></cpn>
+			<cpn></cpn>
+			<cpn></cpn>
+			<!-- 3. 如果有多个值同时放入组件进行替换时，一起作为替换元素 -->
+			<!-- cpn中有多个元素的情况 -->
+			<cpn>
+				<i>我是i元素</i>
+				<div>我是div元素</div>
+			</cpn>
+		</div>
+		
+		<template id="cpn">
+			<div>
+				<p>我是子组件</p>
+				<!-- slot让组件具备扩展性，而不是写死 -->
+				<!-- 抽取共性，保留不同 -->
+				<!-- 1. 插槽的基本使用 -->
+				<slot></slot>
+				
+				<!-- 2. 插槽的默认值 -->
+				<!-- 可以给插槽一个默认值（重复较多的情况） -->
+				<slot><button>案例slot</button></slot>
+			</div>
+		</template>
+		
+		<script src="../js/vue.js"></script>
+		<script>
+			const app = new Vue({
+				el: '#app',
+				data: {
+					message: '你好！'
+				},
+				components: {
+					cpn: {
+						template: '#cpn',
+						
+					}
+				}
+			})
+		</script>
+		
+	</body>
+</html>

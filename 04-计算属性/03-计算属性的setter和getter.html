@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		
+		<div id="app">
+			<!-- 在双大括号里面放变量，如果放方法会有点别扭 -->
+			<h2>{{getFullName()}}</h2>
+			<!-- 计算属性，不需要加小括号 -->
+			<h2>{{fullName}}</h2>
+		</div>
+		
+		<script src="../js/vue.js"></script>
+		<script>
+			const app = new Vue({
+				el: '#app',
+				data: {
+					firstName: 'Reborn',
+					lastName: 'July'
+				},
+				methods: {
+					getFullName: function(){
+						return this.firstName+' '+this.lastName
+					}
+				},
+				// 计算属性
+				computed: {
+					// 命名时，不像方法需要加上动词。
+					// 简写
+					// fullName: function(){
+					// 	return this.firstName+' '+this.lastName
+					// }
+					// 完整的写法
+					fullName:{
+						// 计算属性一般没有set方法，只读属性
+						set: function(newValue) {
+							// console.log("---",newValue);
+							const names = newValue.split(' ');
+							this.firstName = names[0];
+							this.lastName = names[1];
+						},
+						get: function() {
+							return this.firstName+' '+this.lastName
+						}
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

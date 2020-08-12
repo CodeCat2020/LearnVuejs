@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<div id="app">
+			<!-- 错误的做法：这里不可以使用 mustache 语法 -->
+			<!-- <img src="{{imgURL}}" alt=""> -->
+			<!-- 正确的做法：使用v-bind指令 -->
+			<!-- <img v-bind:src="imgURL" alt=""> -->
+			<a v-bind:href="link">百度一下</a>
+			<!-- 语法糖的写法 -->
+			<!-- <img :src="imgURL" alt=""> -->
+			
+			<button v-bind:disabled="isButtonDisabled">Button</button>
+		</div>
+		
+		<script src="../js/vue.js"></script>
+		<script>
+			const app = new Vue({
+				el: '#app',
+				data: {
+					message: '你好！',
+					imgURL: "http://p1.music.126.net/DDbWooTaERVWr4Bw2D3tbQ==/109951165176545416.jpg?imageView&quality=89",
+					link: "http://www.baidu.com",
+					isButtonDisabled: false
+				}
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<div id="app">
+			<!-- mustache语法 -->
+			<!-- 1. 直接拼接：过于繁琐 -->
+			<h2>{{firstName}} {{lastName}}</h2>
+			<h2>{{firstName +' ' + lastName}}</h2>
+			
+			<!-- 2. 通过定义methods -->
+			<!-- 在双大括号里面放变量，如果放方法会有点别扭 -->
+			<!-- 内部的console.log打印四次 -->
+			<h2>{{getFullName()}}</h2>
+			<h2>{{getFullName()}}</h2>
+			<h2>{{getFullName()}}</h2>
+			<h2>{{getFullName()}}</h2>
+			
+			<!-- 3. 通过computed -->
+			<!-- 计算属性，不需要加小括号 -->
+			<!-- 内部的console.log打印一次 -->
+			<h2>{{fullName}}</h2>
+			<h2>{{fullName}}</h2>
+			<h2>{{fullName}}</h2>
+			<h2>{{fullName}}</h2>
+			
+		</div>
+		
+		<script src="../js/vue.js"></script>
+		<script>
+			const app = new Vue({
+				el: '#app',
+				data: {
+					firstName: 'Reborn',
+					lastName: 'July'
+				},
+				methods: {
+					getFullName: function(){
+						console.log('getFullName()');
+						return this.firstName+' '+this.lastName
+					}
+				},
+				// 计算属性
+				computed: {
+					// 命名时，不像方法需要加上动词。
+					fullName: function(){
+						console.log('fullName');
+						return this.firstName+' '+this.lastName
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

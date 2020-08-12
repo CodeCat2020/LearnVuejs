@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+
+		<!-- 没有 name 和 slot时 -->
+		<!--左边、中间、右边 全部替换为 标题 -->
+		<!-- <div id="app">
+			<cpn><span>标题</span></cpn>
+			<cpn><button>标题</button></cpn>
+		</div>
+		
+		<template id="cpn">
+			<div>
+				<slot><span>左边</span></slot>
+				<slot><span>中间</span></slot>
+				<slot><span>右边</span></slot>
+				<slot>哈哈哈</slot>
+			</div>
+		</template> -->
+
+		<!-- 有 name 和 slot时 -->
+		<!-- 2.6.0 废弃了slot属性 -->
+		<div id="app">
+			<cpn><span>标题</span></cpn>
+			<cpn><span slot="center">标题</span></cpn>
+			<cpn><button slot="left">标题</button></cpn>
+		</div>
+		
+		<template id="cpn">
+			<div>
+				<p>我是子组件</p>
+				<slot name="left"><span>左边</span></slot>
+				<slot name="center"><span>中间</span></slot>
+				<slot name="right"><span>右边</span></slot>
+				<slot>哈哈哈</slot>
+			</div>
+		</template>
+		
+		<script src="../js/vue.js"></script>
+		<script>
+			const app = new Vue({
+				el: '#app',
+				data: {
+					message: '你好！'
+				},
+				components: {
+					cpn: {
+						template: '#cpn',
+						
+					}
+				}
+			})
+		</script>
+		
+	</body>
+</html>

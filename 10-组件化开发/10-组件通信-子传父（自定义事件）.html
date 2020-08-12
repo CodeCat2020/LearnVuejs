@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+</html>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+
+		<!-- 父组件模板 -->
+		<div id="app">
+			<!-- 2. 监听子组件的自定义事件 -->
+			<!-- 驼峰itemClick需要转为小写itemclick（包括methods中的，需要统一） -->
+			
+			<!-- 在DOM事件中，如果有参数但是监听时没有小括号，会默认的将event传递 -->
+			<!-- 但是，在这里，会默认传递item给事件 -->
+			<cpn @itemClick="cpnClick"></cpn>
+		</div>
+		
+		
+		<!-- 子组件模板 -->
+		<template id="cpn">
+			<div>
+				<button v-for="item in categories" @click="btnClick(item)">
+					{{item.name}}
+				</button>
+			</div>
+		</template>
+		
+		<script src="../js/vue.js"></script>
+		<script>
+
+			// 子组件
+			const cpn = Vue.extend({
+				template: '#cpn',
+				props: {
+					cInfo: {
+						type: Object,
+						default(){
+							return {}
+						}
+					},
+					childMyMessage: {
+						type: String,
+						default: ''
+					}
+				},
+				data(){
+					return {
+						categories: [
+							{id: 'aaa', name: '热门推荐'},
+							{id: 'bbb', name: '手机数码'},
+							{id: 'ccc', name: '家用家电'},
+							{id: 'ddd', name: '电脑办公'}
+						]
+					}
+				},
+				methods: {
+					btnClick(item) {
+						// 1. 发射事件，事件自定义
+						console.log("我是子组件中的事件")
+						this.$emit('itemclick',item.name)
+					}
+				}
+			})
+			
+			// 父组件
+			const app = new Vue({
+				el: '#app',
+				data: {
+					info: {
+						name: 'why',
+						age: 18,
+						height: 1.88
+					},
+					message: 'aaaa'
+				},
+				components: {
+					cpn
+				},
+				methods: {
+					// 3. 定义父组件中监听事件调用的方法
+					cpnClick(item) {
+						console.log("我是父组件中的事件")
+						console.log(item)
+						console.log(item.name)
+					}
+				}
+			})
+		</script>
+		
+	</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+
+		
+		<div id="app">
+			<ul>
+				<!-- 如果添加列表中已有的元素，key属性会报错。所以这里先删除key属性 -->
+				<!-- <li v-for="item in letters" :key="item">{{item}}</li> -->
+				<li v-for="item in letters">{{item}}</li>
+			</ul>
+			<button @click="btnClick">按钮</button>
+		</div>
+		
+		<script src="../js/vue.js"></script>
+		<script>
+			const app = new Vue({
+				el: '#app',
+				data: {
+					letters: ['A','B','D','E','C']
+				},
+				methods: {
+					btnClick() {
+						// 1. push 方法，响应式，在数组尾部添加 'aaa','bbb','ccc'（最后一个元素）
+						// this.letters.push('aaa','bbb','ccc')
+						
+						// 2. pop() 删除数组中最后一个元素
+						// this.letters.pop()
+						
+						// 3. shift() 删除数组中第一个元素
+						// this.letters.shift()
+						
+						// 4. unshift() 在数组最前面添加 'aaa'（最前面）,'bbb','ccc'
+						// this.letters.unshift('aaa','bbb','ccc')
+						
+						// 5. splice() 删除、插入、替换
+						// splice()
+						// splice()
+						// this.letters.splice(1);
+						
+						// 6. sort()
+						// this.letters.sort()
+						
+						// 7. reverse()
+						// this.letters.reverse()
+						
+						// 注意：通过索引值修改数组中的元素，非响应式
+						// 通过console 可以看到数组发生变化，但是页面显示中没有变化
+						// this.letters[0] = 'bbb'
+						// 解决方案一
+						// this.letters.splice(0,1,'bbb')
+						// set(要修改的对象，索引值，修改后的值)
+						// 解决方案二
+						Vue.set(this.letters,0,'bbb')
+					}
+				}
+			})
+		</script>
+		
+	</body>
+</html>

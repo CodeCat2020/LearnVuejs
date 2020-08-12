@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<div id="app">
+			<cpn></cpn>
+			
+			<!-- 不想要默认的展示效果 -->
+			<cpn>
+				<!-- 目的是获取子组件的pLanguages -->
+				
+				<!-- 只能拿到vue实例的数据，vue实例中没有pLanguages -->
+				<!-- <span v-for="item in pLanguages">{{item}}-</span> -->
+				
+				<!-- 2.5.x以下使用 <template> -->
+				<template slot-scope="slot">
+					<!-- .data对应 slot :data="pLanguages" -->
+					<span v-for="item in slot.data">{{item}} - </span>
+					<!-- 去掉最后一个 - -->
+					<p>{{slot.data.join(' - ')}}</p>
+				</template>
+				
+				
+			</cpn>
+			
+			
+			<!-- <cpn></cpn> -->
+		</div>
+		
+		<template id="cpn">
+			<div>
+				<p>我是子组件</p>
+				<!-- :data="pLanguages"，data 是自定义的，还可以是abc等 -->
+				<slot :data="pLanguages">
+					<ul>
+						<li v-for="item in pLanguages">{{item}}</li>
+					</ul>
+				</slot>
+			</div>
+		</template>
+		
+		
+		<script src="../js/vue.js"></script>
+		<script>
+			const app = new Vue({
+				el: '#app',
+				data: {
+					message: '你好！'
+				},
+				components: {
+					cpn: {
+						template: '#cpn',
+						data() {
+							return {
+								pLanguages: ['JavaScript','C','Java','Go','Python']
+							}
+						}
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

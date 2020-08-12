@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			new Promise((resolve,reject)=>{
+				setTimeout(()=>{
+					// 通过注释下面两个语句中的一个来测试
+					// resolve('Hello world')
+					reject('error message')
+				},1000)
+			}).then(data => {
+				console.log(data);
+			},err => {
+				console.log(err);
+			})
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			.active{
+				color: orange;
+			}
+			.line{
+				color: pink;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<div id="app">
+			<!-- <h2 class="active">{{message}}</h2> -->
+			<!-- 在data中声明active: 'active',和上面没有不同，没有意义 -->
+			<!-- <h2 :class="active">{{message}}</h2> -->
+			
+			<!-- <h2 v-bind:class="{key1:value1,key2:value2}"></h2> -->
+			<!-- <h2 v-bind:class="{类名1:true,类名2:boolean}"></h2> -->
+			
+			<!-- 用法一，不需要data和methods -->
+			<!-- <h2 :class="{active: true, line: false}">active1</h2> -->
+			
+			<!-- 用法二，通过判断布尔值-->
+			<!-- 用法三，可以和普通类同时存在 -->
+			<!-- <h2 v-bind:class="{active: isActive, line: isLine}">{{message}}</h2> -->
+			
+			<!-- 放在data里面 -->
+			<!-- <h2 class="title" :class="classObject">active3</h2> -->
+			
+			<!-- 放在methods里面 -->
+			<h2 class="title" :class="getClasses()">active4</h2>
+			<button v-on:click="btnClink">按钮</button>
+		
+		</div>
+		
+		<script src="../js/vue.js"></script>
+		<script>
+			const app = new Vue({
+				el: '#app',
+				data: {
+					message: '你好！',
+					isActive: true,
+					isLine: false
+				},
+				methods: {
+					btnClink: function(){
+						this.isActive = !this.isActive;
+					},
+					getClasses: function(){
+						return {active: this.isActive,line: this.isLine}
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

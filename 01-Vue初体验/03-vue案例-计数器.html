@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<!-- view 层 -->
+			<h2>当前计数:{{counter}}</h2>
+			<!-- <button v-on:click="counter++">+</button> -->
+			<!-- <button v-on:click="counter--">-</button> -->
+			<button v-on:click="increment">+</button>
+			<button @click="subtraction">-</button>
+			<!-- 语法糖：简写 -->
+		</div>
+		
+		
+		<script src="../js/vue.js"></script>
+		<script>
+			// model 层
+			// proxy
+			const obj = {
+				counter:0
+			}
+			// view model：Vue 对象实例
+			const app = new Vue({
+				// el:'#app',
+				// 等价于
+				el:document.getElementById('app'),
+				// 组件中的data必须是函数
+				data: obj,
+				methods:{	// 定义方法
+					increment:function(){
+						console.log("add被执行");
+						// 当前对象
+						this.counter++;
+					},
+					subtraction:function(){
+						console.log("sub被执行");
+						this.counter--;
+					}
+				}
+				
+			})
+			
+			
+			// js 实现
+			// 1.拿button元素
+			// 2.添加监听事件
+		</script>
+	</body>
+</html>

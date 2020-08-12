@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+</html>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+
+		
+		<div id="app">
+			<!-- 如果使用驼峰标识，比如cInfo，需要将props中的属性、v-bind的属性，以及mustache语法中的变量都改成cInfo -->
+			<!-- 此时， cInfo不会显示父组件的数据，而是显示props中属性的默认值-->
+			<cpn v-bind:cInfo="info"></cpn>
+			<!-- 解决方法：将 cInfo改成c-info，在大写部分的前面加上-，然后改成小写-->
+			<cpn v-bind:c-info="info" :child-my-message="message"></cpn>
+		</div>
+		
+		
+		
+		<template id="cpn">
+			<!-- 如果代码比较多，需要一个确切的根包含代码，比如这里的div -->
+			<div>
+				<p>{{cInfo}}</p>
+				<p>{{childMyMessage}}</p>
+			</div>
+		</template>
+		
+		<script src="../js/vue.js"></script>
+		<script>
+
+			
+			// 子组件
+			const cpn = Vue.extend({
+				template: '#cpn',
+				props: {
+					cInfo: {
+						type: Object,
+						default(){
+							return {}
+						}
+					},
+					childMyMessage: {
+						type: String,
+						default: ''
+					}
+				},
+				data(){
+					return {
+						
+					}
+				},
+				
+			})
+			
+			// 父组件
+			const app = new Vue({
+				el: '#app',
+				data: {
+					info: {
+						name: 'why',
+						age: 18,
+						height: 1.88
+					},
+					message: 'aaaa'
+				},
+				components: {
+					cpn
+				}
+			})
+		</script>
+		
+	</body>
+</html>
