@@ -27,18 +27,18 @@ new Vue({
 // axios.defaults.timeout = 5000
 
 // // 1.基本使用
-// // axios(config) 请求方式
-// // axios({
-// // 	// 可用测试网址：httpbin.org
-// // 	// 123.207.32.32:8000/home/multidata
-// // 	// 默认get请求
-// // 	url: 'http://123.207.32.32:8000/home/multidata',
-// // 	// 请求类型由服务器决定，这里的url不支持post请求
-// // 	// 类似与axios.post()方法
-// // 	// method: 'post'
-// // }).then(res => {
-// // 	console.log(res);
-// // })
+// axios(config) 请求方式
+// axios({
+// 	// 可用测试网址：httpbin.org
+// 	// 123.207.32.32:8000/home/multidata
+// 	// 默认get请求
+// 	url: 'http://123.207.32.32:8000/home/multidata',
+// 	// 请求类型由服务器决定，这里的url不支持post请求
+// 	// 类似与axios.post()方法
+// 	// method: 'post'
+// }).then(res => {
+// 	console.log(res);
+// })
 
 // // axios({
 // // 	url: 'http://123.207.32.32:8000/home/data',
@@ -95,3 +95,11 @@ instance1({
 // }).then(res => {
 // 	console.log(res);
 // })
+
+
+// 5. 封装 axios
+// 只要是第三方框架/库，一定要封装，不要在每个组件中都使用/依赖。
+// - 在 src 下创建 network 文件夹（自定义），然后用 index.js（自定义） 配置 axios。
+// - 通过 import 关键字导入 axios 到 Vue 实例中。
+// - 这样，每个组件（包括 Vue 实例化对象）都将继承该方法对象。
+
