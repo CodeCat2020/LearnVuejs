@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+
+
+		<div id="app">
+			<h2>{{message}}</h2>
+			<cpn :cmessage="message" ref="aaa"></cpn>
+		</div>
+
+		<!-- 子组件模板 -->
+		<template id="cpn">
+			<div>
+				<p>{{cmessage}}</p>
+			</div>
+		</template>
+
+
+		<script src="../js/vue.js"></script>
+		<script>
+			// 子组件
+			let cpn = Vue.extend({
+				template: '#cpn',
+				props: {
+					cmessage: {
+						type: String,
+						default: 'aaaa',
+						required: true
+					}
+				},
+				data(){
+					return {
+						message1: this.cmessage
+					}
+				},
+				beforeCreate:function(){
+					console.log('************');
+					console.log('子组件，beforeCreate')
+					console.log("$el:", this.$el);
+					console.log("$data:", this.$data);	
+					console.log("message1:", this.message1); 	
+					// console.log("innerText:",document.getElementById('cpn').innerText); 
+				},
+				created:function(){
+					console.log('************');
+					console.log('子组件，created')
+					console.log("$el:", this.$el);
+					console.log("$data:", this.$data);	
+					console.log("message1:", this.message1); 
+					// console.log("innerText:",document.getElementById('cpn').innerText);
+				},
+				beforeMount:function(){
+					console.log('************');
+					console.log('子组件，beforeMount')
+					console.log("$el:", this.$el);
+					console.log("$data:", this.$data);	
+					console.log("message1:", this.message1); 	
+					// console.log("innerText:",document.getElementById('cpn').innerText);
+				},
+				mounted:function(){
+					console.log('************');
+					console.log('子组件，mounted')
+					console.log("$el:", this.$el);
+					console.log("$data:", this.$data);	
+					console.log("message1:", this.message1);
+					// console.log("innerText:",document.getElementById('cpn').innerText);
+				},
+				beforeUpdate:function(){
+					console.log('************');
+					console.log('子组件，beforeUpdate')
+					console.log("$el:", this.$el);
+					console.log("$data:", this.$data);	
+					console.log("message1:", this.message1); 
+					// console.log("innerText:",document.getElementById('cpn').innerText);
+				},
+				updated:function(){
+					console.log('************');
+					console.log('子组件，updated')
+					console.log("$el:", this.$el);
+					console.log("$data:", this.$data);	
+					console.log("message1:", this.message1);
+					// console.log("innerText:",document.getElementById('cpn').innerText);
+				},
+				beforeDestroy:function(){
+					console.log('************');
+					console.log('子组件，beforeDestroy')
+					console.log("$el:", this.$el);
+					console.log("$data:", this.$data);	
+					console.log("message1:", this.message1); 
+					// console.log("innerText:",document.getElementById('cpn').innerText);
+				},
+				destroyed:function(){
+					console.log('************');
+					console.log('子组件，destroyed')
+					console.log("$el:", this.$el);
+					console.log("$data:", this.$data);	
+					console.log("message1:", this.message1); 	
+					// console.log("innerText:",document.getElementById('cpn').innerText);
+				},
+			})
+			
+			// 总结
+			// 1.根实例先执行，直接子实例后执行
+			// 在根实例的beforeMount和mounted之间，执行子实例的beforeCreate、created、beforeMount、mounted
+			// 父组件的 beforeCreate：$el、$data、message 均为 undefined， innerHTML 未加载
+			// 父组件的 created：$data、message 加载，$el 为 undefined，innerHTML 未加载
+			
+			// 1.1 父组件挂载前后
+			// 父组件的 beforeMount：$el加载，innerHTML 未加载
+			
+			// 子组件的 beforeCreate（同上）、created（同上）
+			// 子组件的 beforeMount：子组件的$el未加载
+			// 子组件的 mounted：子组件的$el加载且$el显示change....，但是 message1: 你好！
+			
+			// 父组件的 mounted：message: 你好！，$el显示change....，innerHTML 加载但是均显示 你好！
+			
+			// 1.2 父组件更新前后
+			// 父组件的 beforeUpdate：message: change ......
+			
+			// 子组件的 beforeUpdate：message1: 你好！
+			// 子组件的 updated：message1: 你好！
+			
+			// 父组件的 updated：innerHTML 更新。如果再次改变 data会再次触发beforeUpdate和updated。
+			
+			// 1.3 父组件销毁前后，如果改变 data不会触发beforeUpdate和updated。
+			// 父组件的 beforeDestroy：访问子组件: VueComponent
+			
+			// 子组件的 beforeDestroy
+			// 子组件的 destroyed
+			
+			// 父组件的 destroyed：访问子组件: undefined
+			
+			
+			
+			let app = new Vue({
+				el: '#app',
+				data: {
+					message: '你好！',
+				},
+				components: {
+					cpn
+				},
+				// 在实例初始化之后，数据观测 (data observer) 和 event/watcher 事件配置之前被调用。
+				beforeCreate: function() {
+					console.log('beforeCreate');
+					// $el: undefined
+					console.log("$el:", this.$el);			
+					// $data: undefined
+					console.log("$data:", this.$data);	
+					// message: undefined
+					console.log("message:", this.message); 	
+					// <h2>{{message}}</h2>
+					console.log(document.getElementById('app').innerHTML);
+				},
+				/* 在实例创建完成后被立即调用。
+				在这一步，实例已完成以下的配置：数据观测 (data observer)，属性和方法的运算，watch/event 事件回调。
+				然而，挂载阶段还没开始，$el 属性目前不可见。 */
+				created: function() {
+					console.log('created');
+					console.log("$el:", this.$el);					// undefined
+					console.log("$data:", this.$data);			// Object……
+					console.log("message:", this.message);	// 你好！
+					// <h2>{{message}}</h2>
+					console.log(document.getElementById('app').innerHTML);
+				},
+				// 在挂载开始之前被调用：相关的渲染函数首次被调用
+				beforeMount: function() {
+					console.log('-----------------------------');
+					console.log('beforeMount');
+					// <div id="app">			<h2>{{message}}</h2>		</div>
+					console.log("$el:", this.$el);
+					console.log("$data:", this.$data);				// Object……
+					console.log("message:", this.message);		// 你好！
+					// <h2>{{message}}</h2>
+					console.log(document.getElementById('app').innerHTML);
+
+				},
+				// el 被新创建的 vm.$el 替换, 挂在成功	
+				mounted: function() {
+					console.log('-----------------------------');
+					console.log('mounted');
+					// <div id="app">			<h2>{{message}}</h2>		</div>
+					console.log("$el:", this.$el);
+					// Object……
+					console.log("$data:", this.$data);
+					// 你好！
+					console.log("message:", this.message);
+					// <h2>你好</h2>
+					console.log(document.getElementById('app').innerHTML);
+
+				},
+				// 数据更新时调用
+				beforeUpdate: function() {
+					console.log('-----------------------------');
+					console.log('beforeUpdate');
+					// $el: <div id=​"app">​…​</div>​
+					console.log("$el:", this.$el);
+					// $data: {__ob__: Observer}
+					console.log("$data:", this.$data);
+					// message: change ......
+					console.log("message:", this.message);
+					// <h2>你好！</h2>
+					console.log(document.getElementById('app').innerHTML);
+
+				},
+				// 组件 DOM 已经更新, 组件更新完毕 
+				updated: function() {
+					console.log('-----------------------------');
+					console.log('updated');
+					// $el: <div id=​"app">​…​</div>​
+					console.log("$el:", this.$el);
+					// $data: {__ob__: Observer}
+					console.log("$data:", this.$data);
+					// message: change ......
+					this.message = "change updated......";
+					console.log("message:", this.message);
+					// <h2>change ......</h2>
+					console.log(document.getElementById('app').innerHTML);
+				},
+				beforeDestroy:function(){
+					console.log('-----------------------------');
+					console.log('beforeDestroy');
+					// $el: <div id=​"app">​…​</div>​
+					console.log("$el:", this.$el);
+					// $data: {__ob__: Observer}
+					console.log("$data:", this.$data);
+					// change beforeDestroy......
+					this.message = "change beforeDestroy......";
+					console.log("message:", this.message);
+					// <h2>change ......</h2>
+					console.log(document.getElementById('app').innerHTML);
+					console.log('访问子组件:',this.$refs.aaa);
+				},
+				destroyed:function(){
+					console.log('-----------------------------');
+					console.log('destroyed');
+					// $el: <div id=​"app">​…​</div>​
+					console.log("$el:", this.$el);
+					// $data: {__ob__: Observer}
+					console.log("$data:", this.$data);
+					// change destroyed......
+					this.message = "change destroyed......";
+					console.log("message:", this.message);
+					// <h2>change ......</h2>
+					console.log(document.getElementById('app').innerHTML);
+					console.log('访问子组件:',this.$refs.aaa);
+				}
+			});
+			
+			// 触发beforeUpdate和updated
+			setTimeout(function(){
+				app.message = "change ......";
+			}, 3000);
+			
+			// 触发beforeDestroy和destroyed
+			setTimeout(function(){
+				app.$destroy();
+			}, 3000);
+			
+			setTimeout(function(){
+				app.message = "change after destroy......";
+			}, 6000);
+			
+			// change destroyed......
+			setTimeout(function(){
+				console.log('app.message:',app.message);
+			}, 3000);
+		</script>
+
+	</body>
+</html>
