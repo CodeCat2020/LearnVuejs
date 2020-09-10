@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+
+		
+		<div id="app">
+			
+			<!-- isShow为true，dontShow为false时 -->
+			<!-- elements 面板：<h2>你好！2</h2> -->
+			
+			<!-- isShow为false，dontShow为true时 -->
+			<!-- elements 面板： -->
+			<!--<div id="app"><h2>你好！1</h2> 
+			<h2 style="display: none;">你好！2</h2> 
+			<h2 style="display: none;">你好！3</h2> 
+			<h2 style="display: none;">你好！4</h2></div>
+			 -->
+			
+			<!-- isShow为false，dontShow为false时 -->
+			<!-- <h2 style="display: none;">你好！2</h2> -->
+			
+			
+			
+			<h2 v-if="dontShow">{{message + "1"}}</h2>
+			<h2 v-show="isShow">{{message + "2"}}</h2>
+			<h2 v-show="isShow" v-if="dontShow">{{message + "3"}}</h2>
+			<h2 v-if="dontShow" v-show="isShow">{{message + "4"}}</h2>
+		</div>
+		
+		<script src="../js/vue.js"></script>
+		<script>
+			const app = new Vue({
+				el: '#app',
+				data: {
+					message: "你好！",
+					isShow: true,
+					dontShow: true
+				}
+			})
+		</script>
+		
+	</body>
+</html>

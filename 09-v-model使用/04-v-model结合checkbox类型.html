@@ -13,7 +13,7 @@
 			</label>
 			
 			<h2>您选择的是：{{isAgree}}</h2>
-			<button :disabled="isAgree">下一步</button>
+			<button :disabled="!isAgree">下一步</button>
 			<br><br>
 			
 			<!-- 2. checkbox多选框，对应数组类型 -->
