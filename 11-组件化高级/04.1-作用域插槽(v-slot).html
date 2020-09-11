@@ -20,7 +20,7 @@
 			<p>-------</p> -->
 			
 			<!-- 当被提供的内容*只有*默认插槽时 -->
-			<!-- 可以把 `v-slot` 直接用在组件上 -->
+			<!-- 可以把 `v-slot` 直接用在组件上，去掉template -->
 			<!-- <cpn v-slot:default="slot">
 				<p>{{slot.data.join(' - ')}}</p>
 			</cpn>
@@ -39,6 +39,7 @@
 			<p>-------</p> -->
 			
 			<!-- 开启了 prop 重命名 -->
+			<!-- 可以定义后备内容，用于插槽 prop 是 undefined 的情形 -->
 			<cpn v-slot="{ data = ['C++'] }">
 				<p>{{data.join(' & ')}}</p>
 			</cpn>

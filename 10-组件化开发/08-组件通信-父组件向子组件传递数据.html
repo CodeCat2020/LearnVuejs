@@ -9,12 +9,15 @@
 		<!-- 父组件模板 -->
 		<div id="app">
 			<!-- 一定要用v-bind -->
+			
 			<!-- 如果没有v-bind，不会把movies等作为变量去寻找，而是作为字符串展示  -->
 			<!-- <cpn cmovies="movies" cmessage="message"></cpn> -->
-			
-			<!-- 在props是对象时，省略 :cmessage="message 则使用子组件的props中的默认值，而且会报错 -->
+			<h2>例子1：</h2>
 			<cpn v-bind:cmovies="movies" cmessage="message"></cpn>
+			<h2>例子2：</h2>
 			<cpn :cmessage="message"></cpn>
+			<!-- 在props是对象时，省略 :cmessage="message 则使用子组件的props中的默认值，而且会报错 -->
+			<h2>例子3：</h2>
 			<cpn v-bind:cmovies="movies"></cpn>
 
 		</div>
